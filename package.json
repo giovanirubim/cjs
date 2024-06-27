@@ -1,0 +1,11 @@
+{
+  "name": "cjs",
+  "version": "0.0.0",
+  "description": "C subset interpreter for javascript",
+  "main": "src-js/index.js",
+  "type": "module",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
