@@ -1,4 +1,5 @@
 import { CompilationError } from "../errors/compilation-error.js";
+import { TokenType } from "../types/token-types.js";
 import { SrcConsumer } from "./src-consumer.js";
 import { TokenDef } from "./token-def.js";
 import { Token } from "./token.js";
@@ -69,9 +70,12 @@ export class TokenProducer {
 		return buffer[index];
 	}
 
-	pop(): Token | null {
+	pop(type: TokenType | null = null): Token | null {
 		const token = this.next();
 		if (token !== null) {
+			if (type !== null && !token.is(type)) {
+				return null;
+			}
 			this.buffer.splice(0, 1);
 		}
 		return token;

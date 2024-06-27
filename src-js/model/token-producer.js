@@ -54,9 +54,12 @@ export class TokenProducer {
         }
         return buffer[index];
     }
-    pop() {
+    pop(type = null) {
         const token = this.next();
         if (token !== null) {
+            if (type !== null && !token.is(type)) {
+                return null;
+            }
             this.buffer.splice(0, 1);
         }
         return token;
