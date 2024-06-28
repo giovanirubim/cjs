@@ -26,16 +26,16 @@ export class TokenProducer {
 
 	srcConsumer: SrcConsumer;
 	map: Map<Char, TokenDefSet>;
-	buffer: Token[];
+	queue: Token[];
 
 	constructor(srcConsumer: SrcConsumer, tokenDefs: TokenDef[]) {
 		this.srcConsumer = srcConsumer;
 		this.map = buildTokenDefSetMap(tokenDefs);
-		this.buffer = [];
+		this.queue = [];
 	}
 
-	incrementBuffer() {
-		const { srcConsumer, map, buffer } = this;
+	increaseBuffer() {
+		const { srcConsumer, map, queue: buffer } = this;
 		if (srcConsumer.end()) {
 			throw this.eof();
 		}
@@ -57,29 +57,29 @@ export class TokenProducer {
 	}
 
 	next(index: number = 0): Token | undefined {
-		const { buffer, srcConsumer } = this;
+		const { queue: buffer, srcConsumer } = this;
 		while (buffer.length - 1 < index) {
 			if (srcConsumer.end()) {
 				return;
 			}
-			this.incrementBuffer();
+			this.increaseBuffer();
 		}
 		return buffer[index];
 	}
 
-	pop(types?: TokenType | TokenType[]): Token | undefined {
+	pop(...types: TokenType[]): Token | undefined {
 		const token = this.next();
 		if (token !== undefined) {
-			if (types !== undefined && !token.is(types)) {
+			if (types !== undefined && !token.is(...types)) {
 				return;
 			}
-			this.buffer.splice(0, 1);
+			this.queue.splice(0, 1);
 		}
 		return token;
 	}
 
-	mustPop(types?: TokenType | TokenType[]): Token {
-		const res = this.pop(types);
+	mustPop(...types: TokenType[]): Token {
+		const res = this.pop(...types);
 		if (res === undefined) {
 			throw this.eof();
 		}
@@ -87,7 +87,7 @@ export class TokenProducer {
 	}
 
 	end(): boolean {
-		return this.buffer.length === 0 && this.srcConsumer.end();
+		return this.queue.length === 0 && this.srcConsumer.end();
 	}
 
 	eof(): CompilationError {

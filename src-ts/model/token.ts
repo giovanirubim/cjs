@@ -13,10 +13,7 @@ export class Token extends CodeChunk {
 		this.content = content;
 	}
 
-	is(tokenType: TokenType | TokenType[]): boolean {
-		if (tokenType instanceof Array) {
-			return tokenType.indexOf(this.def.tokenType) !== -1;
-		}
-		return this.def.tokenType === tokenType;
+	is(...tokenType: TokenType[]): boolean {
+		return tokenType.indexOf(this.def.tokenType) !== -1;
 	}
 }
