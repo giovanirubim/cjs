@@ -1,5 +1,5 @@
 import { CompilationError } from "../errors/compilation-error.js";
-import { TokenType } from "../types/token-types.js";
+import { TokenType } from "../lang/token-types.js";
 import { SrcConsumer } from "./src-consumer.js";
 import { TokenDef } from "./token-def.js";
 import { Token } from "./token.js";

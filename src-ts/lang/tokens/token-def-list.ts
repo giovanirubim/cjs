@@ -1,5 +1,5 @@
 import { TokenDef } from "../../model/token-def.js";
-import { TokenType } from "../../types/token-types.js";
+import { TokenType } from "../token-types.js";
 
 const digits = [...new Array(10)]
 	.map((_, i) => {

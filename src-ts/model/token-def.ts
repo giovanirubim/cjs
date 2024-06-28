@@ -1,5 +1,5 @@
 import { Pattern } from "../types/pattern.js";
-import { TokenType } from "../types/token-types.js";
+import { TokenType } from "../lang/token-types.js";
 
 export class TokenDef {
 

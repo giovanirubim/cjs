@@ -1,4 +1,4 @@
-import { TokenType } from "../types/token-types.js";
+import { TokenType } from "../lang/token-types.js";
 import { CodeNode } from "./code-node.js";
 import { TokenDef } from "./token-def.js";
 
