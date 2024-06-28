@@ -1,4 +1,4 @@
-import { CodeNode } from "../../model/code-node.js";
+import { CodeChunk } from "../../model/code-chunk.js";
 
-export class Expression extends CodeNode {
+export class Expression extends CodeChunk {
 }

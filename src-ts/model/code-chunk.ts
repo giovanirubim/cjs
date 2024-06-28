@@ -1,4 +1,4 @@
-export class CodeNode {
+export class CodeChunk {
 
 	start: number;
 	end: number;

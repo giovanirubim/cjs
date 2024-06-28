@@ -1,8 +1,8 @@
 import { TokenType } from "../lang/token-types.js";
-import { CodeNode } from "./code-node.js";
+import { CodeChunk } from "./code-chunk.js";
 import { TokenDef } from "./token-def.js";
 
-export class Token extends CodeNode {
+export class Token extends CodeChunk {
 	
 	def: TokenDef;
 	content: string;
