@@ -1,3 +1,4 @@
+import { CompilationError } from "../errors/compilation-error.js";
 import { Pattern } from "../types/pattern.js";
 
 export class SrcConsumer {
@@ -18,23 +19,23 @@ export class SrcConsumer {
 		return this.buffer.length === 0;
 	}
 
-	match(pattern: Pattern): string | null {
+	match(pattern: Pattern): string | undefined {
 		if (typeof pattern === 'string') {
-			return this.buffer.startsWith(pattern) ? pattern : null;
+			return this.buffer.startsWith(pattern) ? pattern : undefined;
 		}
 		if (pattern instanceof RegExp) {
 			const match = this.buffer.match(pattern);
 			if (match === null) {
-				return match;
+				return undefined;
 			}
 			return match[0];
 		}
 		return pattern(this.buffer);
 	}
 
-	pop(pattern: Pattern): string | null {
+	pop(pattern: Pattern): string | undefined {
 		const res = this.match(pattern);
-		if (res !== null) {
+		if (res !== undefined) {
 			this.buffer = this.buffer.substring(res.length);
 		}
 		return res;
@@ -45,5 +46,9 @@ export class SrcConsumer {
 			return '';
 		}
 		return this.buffer[0];
+	}
+
+	error(message: string): CompilationError {
+		return new CompilationError(message, this.getIndex());
 	}
 }

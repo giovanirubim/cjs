@@ -1,17 +1,17 @@
-export type PatternFunction = ((s: string) => string | null);
+export type PatternFunction = ((s: string) => string | undefined);
 export type Pattern = string | RegExp | PatternFunction;
 
-export const matchPattern = (s: string, pattern: Pattern): string | null => {
+export const matchPattern = (s: string, pattern: Pattern): string | undefined => {
 	if (typeof pattern === 'string') {
 		if (s.startsWith(pattern)) {
 			return pattern;
 		}
-		return null;
+		return undefined;
 	}
 	if (pattern instanceof RegExp) {
 		const match = s.match(pattern);
 		if (match === null) {
-			return null;
+			return undefined;
 		}
 		return match[0];
 	}
