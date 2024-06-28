@@ -93,4 +93,10 @@ export const tokenDefList = [
     new TokenDef(TokenType.IDENTIFIER, /^[_A-Z]\w*/i, "_" + lowerCaseAlphabet + upperCaseAlphabet),
     new TokenDef(TokenType.STRING_CONST, /^"([^"\\]|\\.)*"/, '"'),
     new TokenDef(TokenType.CHAR_CONST, /^'([^'\\]|\\.)*'/, "'"),
+    new TokenDef(TokenType.OPEN_BRACKETS, '{'),
+    new TokenDef(TokenType.CLOSE_BRACKETS, '}'),
+    new TokenDef(TokenType.OPEN_SQUARE_BRACKETS, '['),
+    new TokenDef(TokenType.CLOSE_SQUARE_BRACKETS, ']'),
+    new TokenDef(TokenType.OPEN_PARENTHESIS, '('),
+    new TokenDef(TokenType.CLOSE_PARENTHESIS, ')'),
 ];

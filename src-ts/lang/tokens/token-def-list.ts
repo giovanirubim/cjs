@@ -116,4 +116,12 @@ export const tokenDefList = [
 	// Text const
 	new TokenDef(TokenType.STRING_CONST, /^"([^"\\]|\\.)*"/, '"'),
 	new TokenDef(TokenType.CHAR_CONST,   /^'([^'\\]|\\.)*'/, "'"),
+
+	// Enclosing symbols
+	new TokenDef(TokenType.OPEN_BRACKETS,         '{'),
+	new TokenDef(TokenType.CLOSE_BRACKETS,        '}'),
+	new TokenDef(TokenType.OPEN_SQUARE_BRACKETS,  '['),
+	new TokenDef(TokenType.CLOSE_SQUARE_BRACKETS, ']'),
+	new TokenDef(TokenType.OPEN_PARENTHESIS,      '('),
+	new TokenDef(TokenType.CLOSE_PARENTHESIS,     ')'),
 ];
