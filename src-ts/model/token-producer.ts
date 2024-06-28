@@ -113,6 +113,10 @@ export class TokenProducer {
 		return buffer[index];
 	}
 
+	nextIs(type: TokenType): boolean {
+		return this.next()?.is(type) ?? false;
+	}
+
 	pop(...types: TokenType[]): Token | undefined {
 		const token = this.next();
 		if (token !== undefined) {
