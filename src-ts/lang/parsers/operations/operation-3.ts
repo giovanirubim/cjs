@@ -1,23 +1,23 @@
-import { TokenProducer } from "../../../../model/token-producer.js";
-import { Token } from "../../../../model/token.js";
-import { TokenType } from "../../../token-types.js";
-import { Expression } from "../../expression.js";
-import { Divide } from "../../expressions/divide.js";
-import { Multiply } from "../../expressions/multiply.js";
-import { Remainder } from "../../expressions/remainder.js";
+import { TokenProducer } from "../../../model/token-producer.js";
+import { Expression } from "../../model/expression.js";
+import * as Tokens from "../../tokens/token-defs.js";
+import { Multiply } from "../../model/expressions/multiply.js";
+import { Divide } from "../../model/expressions/divide.js";
+import { Remainder } from "../../model/expressions/remainder.js";
 import { parseOperand3 } from "../operands/operand-3.js";
+import { Token } from "../../../model/token.js";
 
 const operators = [
-	TokenType.ASTERISK,
-	TokenType.DIVISION,
-	TokenType.REMAINDER,
+	Tokens.ASTERISK,
+	Tokens.DIVISION,
+	Tokens.REMAINDER,
 ];
 
 const buildNode = (left: Expression, operand: Token, right: Expression): Expression => {
-	if (operand.is(TokenType.ASTERISK)) {
+	if (operand.is(Tokens.ASTERISK)) {
 		return new Multiply(left, right);
 	}
-	if (operand.is(TokenType.DIVISION)) {
+	if (operand.is(Tokens.DIVISION)) {
 		return new Divide(left, right);
 	}
 	return new Remainder(left, right);

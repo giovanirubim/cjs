@@ -1,18 +1,18 @@
-import { TokenProducer } from "../../../../model/token-producer.js";
-import { Token } from "../../../../model/token.js";
-import { TokenType } from "../../../token-types.js";
-import { Expression } from "../../expression.js";
-import { Subtract } from "../../expressions/subtract.js";
-import { Sum } from "../../expressions/sum.js";
+import { TokenProducer } from "../../../model/token-producer.js";
+import { Expression } from "../../model/expression.js";
+import * as Tokens from "../../tokens/token-defs.js";
+import { Token } from "../../../model/token.js";
+import { Sum } from "../../model/expressions/sum.js";
+import { Subtract } from "../../model/expressions/subtract.js";
 import { parseOperand4 } from "../operands/operand-4.js";
 
 const operators = [
-	TokenType.PLUS,
-	TokenType.MINUS,
+	Tokens.PLUS,
+	Tokens.MINUS,
 ];
 
 const buildNode = (left: Expression, op: Token, right: Expression): Expression => {
-	if (op.is(TokenType.PLUS)) {
+	if (op.is(Tokens.PLUS)) {
 		return new Sum(left, right);
 	}
 	return new Subtract(left, right);

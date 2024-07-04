@@ -1,36 +1,36 @@
-import { TokenProducer } from "../../../../model/token-producer.js";
-import { TokenType } from "../../../token-types.js";
-import { Expression } from "../../expression.js";
-import { Call } from "../../expressions/call.js";
+import { TokenProducer } from "../../../model/token-producer.js";
+import { Expression } from "../../model/expression.js";
+import { Call } from "../../model/expressions/call.js";
 import { parseExpression } from "../expression.js";
 import { parseOperand1 } from "../operands/operand-1.js";
+import * as Tokens from "../../tokens/token-defs.js";
 
 const parseCall = (fn: Expression, tokenProducer: TokenProducer): Call => {
-	tokenProducer.mustPop(TokenType.OPEN_PARENTHESIS);
+	tokenProducer.mustPop(Tokens.OPEN_PARENTHESIS);
 	const args: Expression[] = [];
 
-	if (tokenProducer.nextIs(TokenType.CLOSE_PARENTHESIS)) {
-		const close = tokenProducer.mustPop(TokenType.CLOSE_PARENTHESIS);
+	if (tokenProducer.nextIs(Tokens.CLOSE_PARENTHESIS)) {
+		const close = tokenProducer.mustPop(Tokens.CLOSE_PARENTHESIS);
 		return new Call(fn, args, close);
 	}
 
 	for (;;) {
 		const arg = parseExpression(tokenProducer);
 		args.push(arg);
-		if (tokenProducer.nextIs(TokenType.CLOSE_PARENTHESIS)) {
+		if (tokenProducer.nextIs(Tokens.CLOSE_PARENTHESIS)) {
 			break;
 		}
-		tokenProducer.mustPop(TokenType.COMMA);
+		tokenProducer.mustPop(Tokens.COMMA);
 	}
 
-	const close = tokenProducer.mustPop(TokenType.CLOSE_PARENTHESIS);
+	const close = tokenProducer.mustPop(Tokens.CLOSE_PARENTHESIS);
 	return new Call(fn, args, close);
 };
 
 export const parseOperation1 = (tokenProducer: TokenProducer): Expression => {
 	const operand = parseOperand1(tokenProducer);
 
-	if (tokenProducer.nextIs(TokenType.OPEN_PARENTHESIS)) {
+	if (tokenProducer.nextIs(Tokens.OPEN_PARENTHESIS)) {
 		return parseCall(operand, tokenProducer);
 	}
 
