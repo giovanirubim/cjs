@@ -1,14 +1,11 @@
 import { Pattern } from "../types/pattern.js";
-import { TokenType } from "../lang/token-types.js";
 
 export class TokenDef {
 
-	tokenType: TokenType;
 	pattern: Pattern;
 	initialCharSet: string;
 
-	constructor(tokenType: TokenType, pattern: Pattern, initialCharSet?: string) {
-		this.tokenType = tokenType;
+	constructor(pattern: Pattern, initialCharSet?: string) {
 		if (typeof pattern === 'string') {
 			if (initialCharSet !== undefined) {
 				throw new Error('String patterns require no initial char set');

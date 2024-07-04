@@ -1,4 +1,3 @@
-import { TokenType } from "../lang/token-types.js";
 import { ErrorBuilder } from "./error-builder.js";
 import { Skippable } from "./skippable.js";
 import { SrcConsumer } from "./src-consumer.js";
@@ -113,11 +112,11 @@ export class TokenProducer {
 		return buffer[index];
 	}
 
-	nextIs(type: TokenType): boolean {
+	nextIs(type: TokenDef): boolean {
 		return this.next()?.is(type) ?? false;
 	}
 
-	pop(...types: TokenType[]): Token | undefined {
+	pop(...types: TokenDef[]): Token | undefined {
 		const token = this.next();
 		if (token !== undefined) {
 			if ((types !== undefined) && (types.length !== 0) && !token.is(...types)) {
@@ -128,7 +127,7 @@ export class TokenProducer {
 		return token;
 	}
 
-	mustPop(...types: TokenType[]): Token {
+	mustPop(...types: TokenDef[]): Token {
 		const res = this.pop(...types);
 		if (res === undefined) {
 			throw this.error().eof();

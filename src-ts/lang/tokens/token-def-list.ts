@@ -1,127 +1,103 @@
-import { TokenDef } from "../../model/token-def.js";
-import { TokenType } from "../token-types.js";
-
-const digits = [...new Array(10)]
-	.map((_, i) => {
-		return String.fromCharCode('0'.charCodeAt(0) + i);
-	})
-	.join('');
-
-const lowerCaseAlphabet = [...new Array(26)]
-	.map((_, i) => {
-		return String.fromCharCode('a'.charCodeAt(0) + i);
-	})
-	.join('');
-
-const upperCaseAlphabet = lowerCaseAlphabet.toUpperCase();
-
-const reservedWord = (type: TokenType, word: string): TokenDef => {
-	const pattern = new RegExp(`^${word}\\b`);
-	return new TokenDef(type, pattern, word[0]);
-};
+import * as Tokens from './token-defs.js';
 
 export const tokenDefList = [
 
 	// Reserved words
-	reservedWord(TokenType.AUTO,      "auto"),
-	reservedWord(TokenType.BREAK,     "break"),
-	reservedWord(TokenType.CASE,      "case"),
-	reservedWord(TokenType.CHAR_TYPE, "char"),
-	reservedWord(TokenType.CONST,     "const"),
-	reservedWord(TokenType.CONTINUE,  "continue"),
-	reservedWord(TokenType.DEFAULT,   "default"),
-	reservedWord(TokenType.DO,        "do"),
-	reservedWord(TokenType.DOUBLE,    "double"),
-	reservedWord(TokenType.ELSE,      "else"),
-	reservedWord(TokenType.ENUM,      "enum"),
-	reservedWord(TokenType.EXTERN,    "extern"),
-	reservedWord(TokenType.FLOAT,     "float"),
-	reservedWord(TokenType.FOR,       "for"),
-	reservedWord(TokenType.GOTO,      "goto"),
-	reservedWord(TokenType.IF,        "if"),
-	reservedWord(TokenType.INT,       "int"),
-	reservedWord(TokenType.LONG,      "long"),
-	reservedWord(TokenType.REGISTER,  "register"),
-	reservedWord(TokenType.RETURN,    "return"),
-	reservedWord(TokenType.SHORT,     "short"),
-	reservedWord(TokenType.SIGNED,    "signed"),
-	reservedWord(TokenType.SIZEOF,    "sizeof"),
-	reservedWord(TokenType.STATIC,    "static"),
-	reservedWord(TokenType.STRUCT,    "struct"),
-	reservedWord(TokenType.SWITCH,    "switch"),
-	reservedWord(TokenType.TYPEDEF,   "typedef"),
-	reservedWord(TokenType.UNION,     "union"),
-	reservedWord(TokenType.UNSIGNED,  "unsigned"),
-	reservedWord(TokenType.VOID,      "void"),
-	reservedWord(TokenType.VOLATILE,  "volatile"),
-	reservedWord(TokenType.WHILE,     "while"),
+	Tokens.AUTO,
+	Tokens.BREAK,
+	Tokens.CASE,
+	Tokens.CHAR_TYPE,
+	Tokens.CONST,
+	Tokens.CONTINUE,
+	Tokens.DEFAULT,
+	Tokens.DO,
+	Tokens.DOUBLE,
+	Tokens.ELSE,
+	Tokens.ENUM,
+	Tokens.EXTERN,
+	Tokens.FLOAT,
+	Tokens.FOR,
+	Tokens.GOTO,
+	Tokens.IF,
+	Tokens.INT,
+	Tokens.LONG,
+	Tokens.REGISTER,
+	Tokens.RETURN,
+	Tokens.SHORT,
+	Tokens.SIGNED,
+	Tokens.SIZEOF,
+	Tokens.STATIC,
+	Tokens.STRUCT,
+	Tokens.SWITCH,
+	Tokens.TYPEDEF,
+	Tokens.UNION,
+	Tokens.UNSIGNED,
+	Tokens.VOID,
+	Tokens.VOLATILE,
+	Tokens.WHILE,
 
 	// Three-character operators
-	new TokenDef(TokenType.ASSIGN_SHIFT_LEFT,  "<<="),
-	new TokenDef(TokenType.ASSIGN_SHIFT_RIGHT, ">>="),
+	Tokens.ASSIGN_SHIFT_LEFT,
+	Tokens.ASSIGN_SHIFT_RIGHT,
 
 	// Two-character operators
-	new TokenDef(TokenType.ASSIGN_BITWISE_AND,   "&="),
-	new TokenDef(TokenType.ASSIGN_BITWISE_OR,    "|="),
-	new TokenDef(TokenType.ASSIGN_BITWISE_XOR,   "^="),
-	new TokenDef(TokenType.ASSIGN_DIFFERENCE,    "-="),
-	new TokenDef(TokenType.ASSIGN_DIVISION,      "/="),
-	new TokenDef(TokenType.ASSIGN_PRODUCT,       "*="),
-	new TokenDef(TokenType.ASSIGN_REMAINDER,     "%="),
-	new TokenDef(TokenType.ASSIGN_SUM,           "+="),
-	new TokenDef(TokenType.CMP_DIFFERENT,        "!="),
-	new TokenDef(TokenType.CMP_EQUALS,           "=="),
-	new TokenDef(TokenType.CMP_GREATER_OR_EQUAL, ">="),
-	new TokenDef(TokenType.CMP_LESS_OR_EQUAL,    "<="),
-	new TokenDef(TokenType.DECREMENT,            "--"),
-	new TokenDef(TokenType.INCREMENT,            "++"),
-	new TokenDef(TokenType.LOGICAL_AND,          "&&"),
-	new TokenDef(TokenType.LOGICAL_OR,           "||"),
-	new TokenDef(TokenType.MEMBER_PTR_ACC,       "->"),
-	new TokenDef(TokenType.SHIFT_LEFT,           "<<"),
-	new TokenDef(TokenType.SHIFT_RIGHT,          ">>"),
-
+	Tokens.ASSIGN_BITWISE_AND,
+	Tokens.ASSIGN_BITWISE_OR,
+	Tokens.ASSIGN_BITWISE_XOR,
+	Tokens.ASSIGN_DIFFERENCE,
+	Tokens.ASSIGN_DIVISION,
+	Tokens.ASSIGN_PRODUCT,
+	Tokens.ASSIGN_REMAINDER,
+	Tokens.ASSIGN_SUM,
+	Tokens.CMP_DIFFERENT,
+	Tokens.CMP_EQUALS,
+	Tokens.CMP_GREATER_OR_EQUAL,
+	Tokens.CMP_LESS_OR_EQUAL,
+	Tokens.DECREMENT,
+	Tokens.INCREMENT,
+	Tokens.LOGICAL_AND,
+	Tokens.LOGICAL_OR,
+	Tokens.MEMBER_PTR_ACC,
+	Tokens.SHIFT_LEFT,
+	Tokens.SHIFT_RIGHT,
+	
 	// One-character operators and symbols
-	new TokenDef(TokenType.AMPERSAND,    "&"),
-	new TokenDef(TokenType.ASSIGN,       "="),
-	new TokenDef(TokenType.ASTERISK,     "*"),
-	new TokenDef(TokenType.BITWISE_AND,  "&"),
-	new TokenDef(TokenType.BITWISE_NOT,  "~"),
-	new TokenDef(TokenType.BITWISE_OR,   "|"),
-	new TokenDef(TokenType.BITWISE_XOR,  "^"),
-	new TokenDef(TokenType.CMP_GREATER,  ">"),
-	new TokenDef(TokenType.CMP_LESS,     "<"),
-	new TokenDef(TokenType.COMMA,        ","),
-	new TokenDef(TokenType.DIVISION,     "/"),
-	new TokenDef(TokenType.LOGICAL_NOT,  "!"),
-	new TokenDef(TokenType.MEMBER_ACC,   "."),
-	new TokenDef(TokenType.MINUS,        "-"),
-	new TokenDef(TokenType.PLUS,         "+"),
-	new TokenDef(TokenType.REMAINDER,    "%"),
-	new TokenDef(TokenType.SEMICOLON,    ";"),
-	new TokenDef(TokenType.TERNARY_ELSE, ":"),
-	new TokenDef(TokenType.TERNARY_IF,   "?"),
+	Tokens.AMPERSAND,
+	Tokens.ASSIGN,
+	Tokens.ASTERISK,
+	Tokens.BITWISE_AND,
+	Tokens.BITWISE_NOT,
+	Tokens.BITWISE_OR,
+	Tokens.BITWISE_XOR,
+	Tokens.CMP_GREATER,
+	Tokens.CMP_LESS,
+	Tokens.COMMA,
+	Tokens.DIVISION,
+	Tokens.LOGICAL_NOT,
+	Tokens.MEMBER_ACC,
+	Tokens.MINUS,
+	Tokens.PLUS,
+	Tokens.REMAINDER,
+	Tokens.SEMICOLON,
+	Tokens.TERNARY_ELSE,
+	Tokens.TERNARY_IF,
 	
 	// Numbers
-	new TokenDef(TokenType.DECIMAL, /^(\d+\.\d+(e[\+\-]?\d+)?)/i, digits),
-	new TokenDef(TokenType.INTEGER, /^(0|[1-9]\d*)/, digits),
-
+	Tokens.DECIMAL,
+	Tokens.INTEGER,
+	
 	// Id
-	new TokenDef(
-		TokenType.IDENTIFIER,
-		/^[_A-Z]\w*/i,
-		"_" + lowerCaseAlphabet + upperCaseAlphabet,
-	),
-
-	// Text const
-	new TokenDef(TokenType.STRING_CONST, /^"([^"\\]|\\.)*"/, '"'),
-	new TokenDef(TokenType.CHAR_CONST,   /^'([^'\\]|\\.)*'/, "'"),
-
+	Tokens.IDENTIFIER,
+	
+	// Text constants
+	Tokens.STRING_CONST,
+	Tokens.CHAR_CONST,
+	
 	// Enclosing symbols
-	new TokenDef(TokenType.OPEN_BRACKETS,         '{'),
-	new TokenDef(TokenType.CLOSE_BRACKETS,        '}'),
-	new TokenDef(TokenType.OPEN_SQUARE_BRACKETS,  '['),
-	new TokenDef(TokenType.CLOSE_SQUARE_BRACKETS, ']'),
-	new TokenDef(TokenType.OPEN_PARENTHESIS,      '('),
-	new TokenDef(TokenType.CLOSE_PARENTHESIS,     ')'),
+	Tokens.OPEN_BRACKETS,
+	Tokens.CLOSE_BRACKETS,
+	Tokens.OPEN_SQUARE_BRACKETS,
+	Tokens.CLOSE_SQUARE_BRACKETS,
+	Tokens.OPEN_PARENTHESIS,
+	Tokens.CLOSE_PARENTHESIS,
 ];

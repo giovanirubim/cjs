@@ -1,4 +1,3 @@
-import { TokenType } from "../lang/token-types.js";
 import { CodeChunk } from "./code-chunk.js";
 import { TokenDef } from "./token-def.js";
 
@@ -13,7 +12,7 @@ export class Token extends CodeChunk {
 		this.content = content;
 	}
 
-	is(...tokenType: TokenType[]): boolean {
-		return tokenType.indexOf(this.def.tokenType) !== -1;
+	is(...tokenType: TokenDef[]): boolean {
+		return tokenType.indexOf(this.def) !== -1;
 	}
 }
