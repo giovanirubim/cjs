@@ -34,6 +34,5 @@ export const parseOperation1 = (tokenProducer: TokenProducer): Expression => {
 		return parseCall(operand, tokenProducer);
 	}
 
-	tokenProducer.mustPop();
-	throw tokenProducer.error().unexpectedToken();
+	return operand;
 };

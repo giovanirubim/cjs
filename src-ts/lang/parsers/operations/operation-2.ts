@@ -30,6 +30,6 @@ export const parseOperation2 = (tokenProducer: TokenProducer): Expression => {
 		return parseSizeOf(tokenProducer);
 	}
 
-	tokenProducer.mustPop();
-	throw tokenProducer.error().unexpectedToken();
+	const token = tokenProducer.mustPop();
+	throw tokenProducer.error().unexpectedToken(token);
 };
