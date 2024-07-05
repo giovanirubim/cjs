@@ -4,6 +4,8 @@ import { AddressOf } from "../../model/expressions/address-of.js";
 import { parseExpression } from "../expression.js";
 import * as Tokens from "../../tokens/token-defs.js";
 import { Sizeof } from "../../model/expressions/sizeof.js";
+import { parseOperand1 } from "../operands/operand-1.js";
+import { LogicalNOT } from "../../model/expressions/logical-not.js";
 
 const parseAddressOf = (tokenProducer: TokenProducer): AddressOf => {
 	const ampersand = tokenProducer.mustPop(Tokens.AMPERSAND);
@@ -21,6 +23,12 @@ const parseSizeOf = (tokenProducer: TokenProducer): Expression => {
 	return new Sizeof(token, arg, close);
 };
 
+const parseLogicalNot = (tokenProducer: TokenProducer): Expression => {
+	const token = tokenProducer.mustPop(Tokens.LOGICAL_NOT);
+	const expr = parseOperation2(tokenProducer);
+	return new LogicalNOT(token, expr);
+};
+
 export const parseOperation2 = (tokenProducer: TokenProducer): Expression => {
 	if (tokenProducer.nextIs(Tokens.AMPERSAND)) {
 		return parseAddressOf(tokenProducer);
@@ -30,6 +38,9 @@ export const parseOperation2 = (tokenProducer: TokenProducer): Expression => {
 		return parseSizeOf(tokenProducer);
 	}
 
-	const token = tokenProducer.mustPop();
-	throw tokenProducer.error().unexpectedToken(token);
+	if (tokenProducer.nextIs(Tokens.LOGICAL_NOT)) {
+		return parseLogicalNot(tokenProducer);
+	}
+
+	return parseOperand1(tokenProducer);
 };
