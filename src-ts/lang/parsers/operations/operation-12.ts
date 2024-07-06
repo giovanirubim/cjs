@@ -1,7 +1,7 @@
 import { TokenProducer } from "../../../model/token-producer.js";
 import { Token } from "../../../model/token.js";
 import { Expression } from "../../model/expression.js";
-import { LogicalOR } from "../../model/expressions/logicla-or.js";
+import { LogicalOR } from "../../model/expressions/logical-or.js";
 import { LOGICAL_OR } from "../../tokens/token-defs.js";
 import { buildLRTree } from "../build-lr-tree.js";
 import { parseOperation11 } from "./operation-11.js";

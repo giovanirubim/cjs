@@ -25,13 +25,13 @@ const parseOperator = (tokenProducer: TokenProducer): Token | undefined => {
 };
 
 const buildNode = (left: Expression, op: Token, right: Expression): Expression => {
-	if (op.def === Tokens.CMP_GREATER) {
+	if (op.is(Tokens.CMP_GREATER)) {
 		return new CmpGreater(left, right);
 	}
-	if (op.def === Tokens.CMP_GREATER_OR_EQUAL) {
+	if (op.is(Tokens.CMP_GREATER_OR_EQUAL)) {
 		return new CmpGreaterOrEqual(left, right);
 	}
-	if (op.def === Tokens.CMP_LESS) {
+	if (op.is(Tokens.CMP_LESS)) {
 		return new CmpLess(left, right);
 	}
 	return new CmpLessOrEqual(left, right);
