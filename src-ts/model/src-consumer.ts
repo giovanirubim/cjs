@@ -1,5 +1,5 @@
 import { CompilationError } from "../errors/compilation-error.js";
-import { Pattern } from "../types/pattern.js";
+import { matchPattern, Pattern } from "../types/pattern.js";
 
 export class SrcConsumer {
 
@@ -20,17 +20,7 @@ export class SrcConsumer {
 	}
 
 	match(pattern: Pattern): string | undefined {
-		if (typeof pattern === 'string') {
-			return this.buffer.startsWith(pattern) ? pattern : undefined;
-		}
-		if (pattern instanceof RegExp) {
-			const match = this.buffer.match(pattern);
-			if (match === null) {
-				return undefined;
-			}
-			return match[0];
-		}
-		return pattern(this.buffer);
+		return matchPattern(this.buffer, pattern);
 	}
 
 	pop(pattern: Pattern): string | undefined {
